@@ -1,0 +1,10 @@
+@use 'style';
+
+.page{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(to right, #F56217, #0B486B);
+
+}

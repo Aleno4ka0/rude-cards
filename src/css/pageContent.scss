@@ -1,0 +1,39 @@
+@use 'style';
+
+.page-content__wrapper{
+  display: flex;
+  justify-content: center;
+}
+.page-content{
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  height: calc(100vh - 12rem);
+  margin: 1rem 3rem;
+  display: grid;
+  grid-template-rows: 1fr 7rem 1fr;
+  gap: 1rem;
+  
+  &__question{
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 0.5rem;
+    min-height: 20rem;
+  }
+  &__info{
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__cards{
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 0.5rem;
+    display: grid;
+    grid-template-columns: 17rem calc(100% - 17rem);
+    min-height: 20rem;
+    overflow: hidden;
+  }
+}

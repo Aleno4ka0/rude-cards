@@ -1,0 +1,14 @@
+@use 'style';
+
+.footer{
+  height: 5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  &__content{
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 3rem;
+  }
+}

@@ -1,0 +1,27 @@
+.button__user{
+  width: 20rem;
+  height: 10rem;
+  background-color: aquamarine;
+  font-size: 2rem;
+}
+.page{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(to right, #F56217, #0B486B);
+  margin: auto;
+  &__content{
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    height: calc(100vh - 12rem);
+    margin: 1rem 3rem;
+    display: flex;
+    gap: 1rem;
+    margin: auto;
+    background-color: black;
+    justify-content: center;
+
+  }
+}
