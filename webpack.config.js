@@ -16,6 +16,9 @@ module.exports = {
     compress: true,
     port: 9000,
   },
+  stats: {
+    children: true,
+  },
   plugins: [
     new HTMLWebpackPlugin({
       template: './index.html',

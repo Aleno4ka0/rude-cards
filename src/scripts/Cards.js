@@ -2,15 +2,17 @@ import createDOMElement from './createDOMElement';
 import '../css/cards.scss';
 
 export default class Cards {
-  constructor(parentNode) {
+  constructor(parentNode, clickEvent) {
+    this.event = clickEvent;
     this.wrapper = parentNode;
   }
 
-  renderCards() {
+  renderCards(msg) {
     this.createListPlayers();
     this.createWrapperCards();
-    for (let i = 0; i < 10; i += 1) {
-      this.createCard('textContent');
+    for (let i = 0; i < msg.cards.length; i += 1) {
+      let card = msg.cards[i];
+      this.createCard(card.text, card.uid);
     }
   }
 
@@ -21,11 +23,13 @@ export default class Cards {
     this.wrapperCardsElement = createDOMElement(this.WrapperCards);
   }
 
-  createCard(textContent) {
+  createCard(textContent, id) {
     this.card = {
       elementName: 'div', classNames: 'card', children: textContent, parent: this.wrapperCardsElement,
     };
     this.cardElement = createDOMElement(this.card);
+    this.cardElement.id = id;
+    this.cardElement.addEventListener('click', this.event)
   }
 
   createListPlayers() {

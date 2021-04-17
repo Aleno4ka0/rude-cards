@@ -41,7 +41,7 @@ export default class RegistrationPage {
     this.userElement = createDOMElement(this.user);
 
     const onClick = () => {
-      this.facade.addUser('valera');
+      this.facade.addUser('valera1');
     };
     this.userElement.addEventListener('click', onClick.bind(this));
   }

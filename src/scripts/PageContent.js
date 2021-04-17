@@ -4,22 +4,27 @@ import Cards from './Cards';
 import InfoBar from './Infobar';
 
 export default class PageContent {
-  constructor(parentNode) {
+  constructor(parentNode, facade) {
     this.page = parentNode;
+    this.facade = facade;
   }
 
-  renderPageContent() {
+  renderPageContent(msg) {
     this.createWrapperPageContent();
     this.createPageContent();
-    this.createWrapper('page-content__question');
+    this.createWrapper('page-content__question', 'question');
 
     this.createWrapperInfoBar();
     const infoBar = new InfoBar(this.wrapperElementInfoBar);
     infoBar.renderInfoBar();
 
     this.createWrapperCards();
-    const cards = new Cards(this.wrapperCardsElement);
-    cards.renderCards();
+    const onClick = (e) => {
+      e.path[0].style.visibility = "hidden"
+      this.facade.sendAnswer(e.id)  
+    }
+    const cards = new Cards(this.wrapperCardsElement, onClick);
+    cards.renderCards(msg);
   }
 
   createWrapperPageContent() {
@@ -36,9 +41,9 @@ export default class PageContent {
     this.pageContentElement = createDOMElement(this.pageContent);
   }
 
-  createWrapper(className) {
+  createWrapper(className, qustion) {
     this.wrapper = {
-      elementName: 'div', classNames: className, children: 'sasa', parent: this.pageContentElement,
+      elementName: 'div', classNames: className, children: qustion, parent: this.pageContentElement,
     };
     this.wrapperElement = createDOMElement(this.wrapper);
   }
