@@ -5,43 +5,48 @@ import Header from './Header';
 import '../css/registrationPage.scss';
 
 export default class RegistrationPage {
-  constructor(facade) {
-    this.facade = facade;
+  constructor(app) {
+    this.app = app;
   }
 
   renderPage() {
     this.createPage();
-    const header = new Header(this.pageElement);
-    header.renderHeader();
-    this.createPageContent();
-    this.createUser();
+    this.app.header = new Header(this.pageElement);
+    this.app.header.renderHeader();
 
-    const footer = new Footer(this.pageElement);
-    footer.renderFooter();
+    this.createPageContent();
+    this.createJoinButton();
+
+    this.app.footer = new Footer(this.pageElement);
+    this.app.footer.renderFooter();
   }
 
   createPage() {
-    this.page = {
-      elementName: 'div', classNames: 'page', parent: document.body,
-    };
-    this.pageElement = createDOMElement(this.page);
+    this.pageElement = createDOMElement({
+      elementName: 'div', 
+      classNames: 'page', 
+      parent: document.body,
+    });
   }
 
   createPageContent() {
-    this.pageContent = {
-      elementName: 'div', classNames: 'page__content', parent: this.pageElement,
-    };
-    this.pageContentElement = createDOMElement(this.pageContent);
+    this.pageContentElement = createDOMElement({
+      elementName: 'div', 
+      classNames: 'page__content', 
+      parent: this.pageElement,
+    });
   }
 
-  createUser() {
-    this.user = {
-      elementName: 'button', classNames: 'button__user', children: 'добавить пользователя', parent: this.pageContentElement,
-    };
-    this.userElement = createDOMElement(this.user);
+  createJoinButton() {
+    this.userElement = createDOMElement({
+      elementName: 'button', 
+      classNames: 'button__user', 
+      children: 'добавить пользователя', 
+      parent: this.pageContentElement,
+    });
 
     const onClick = () => {
-      this.facade.addUser('valera1');
+      this.app.joinAs('valera1');
     };
     this.userElement.addEventListener('click', onClick.bind(this));
   }

@@ -8,7 +8,7 @@ export default class Cards {
   }
 
   renderCards(msg) {
-    this.createListPlayers();
+    this.createListPlayers(msg.players);
     this.createWrapperCards();
     for (let i = 0; i < msg.cards.length; i += 1) {
       let card = msg.cards[i];
@@ -17,36 +17,49 @@ export default class Cards {
   }
 
   createWrapperCards() {
-    this.WrapperCards = {
-      elementName: 'div', classNames: 'wrapper__cards', parent: this.wrapper,
-    };
-    this.wrapperCardsElement = createDOMElement(this.WrapperCards);
+    this.wrapperCardsElement = createDOMElement({
+      elementName: 'div', 
+      classNames: 'wrapper__cards', 
+      parent: this.wrapper,
+    });
   }
 
   createCard(textContent, id) {
-    this.card = {
-      elementName: 'div', classNames: 'card', children: textContent, parent: this.wrapperCardsElement,
-    };
-    this.cardElement = createDOMElement(this.card);
+    this.cardElement = createDOMElement({
+      elementName: 'div', 
+      classNames: 'card', 
+      children: textContent, 
+      parent: this.wrapperCardsElement,
+    });
     this.cardElement.id = id;
     this.cardElement.addEventListener('click', this.event)
   }
 
-  createListPlayers() {
-    this.players = {
-      elementName: 'div', classNames: 'list__players', children: 'Игроки:', parent: this.wrapper,
-    };
-    this.playersElement = createDOMElement(this.players);
+  createListPlayers(players) {
+    if (this.playersElement === undefined) {
+      this.playersElement = createDOMElement({
+        elementName: 'div', 
+        classNames: 'list__players', 
+        children: 'Игроки:', 
+        parent: this.wrapper,
+      });  
+    }
 
-    for (let i = 0; i < 15; i += 1) {
-      this.createPlayer('Perdun');
+    if (this.players !== undefined && this.players.length){
+      this.players.forEach((pl) => this.playersElement.removeChild(pl))
+    }
+    this.players = [];
+    for (let i = 0; i < players.length; i += 1) {
+      this.createPlayer(players[i].username);
     }
   }
 
   createPlayer(namePlayer) {
-    this.player = {
-      elementName: 'div', classNames: 'player', children: namePlayer, parent: this.playersElement,
-    };
-    this.playerElement = createDOMElement(this.player);
+    this.players.push(createDOMElement({
+      elementName: 'div', 
+      classNames: 'player', 
+      children: namePlayer, 
+      parent: this.playersElement,
+    }));
   }
 }

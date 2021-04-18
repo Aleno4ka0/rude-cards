@@ -1,32 +1,16 @@
 // import SockJS from 'sockjs';
 
 export default class Facade {
-  constructor(gamePage) {
-    this.gamePage = gamePage
+  constructor(onRecieve) {
     const host = 'http://rude-cards.herokuapp.com/game';
     const socket = new SockJS(host);
 
     this.stompClient = Stomp.over(socket);
     const gameId = null;
 
-    const onRecieve =  (messageOutput) => {
-      const msg = JSON.parse(messageOutput.body)
-      switch (msg.type) {
-        case "PLAYER_LIST_UPDATED":
-          this.gamePage.onGameConnect(msg);
-          break;
-        case "NEW_ANSWER":
-          this.gamePage.refreshAnswers(msg.Cards);
-          break;
-        case "EXCEPTION":
-          this.gamePage.showError(msg.detail);
-          break;
-      }
-    };
-
     const onConnect = (frame) => {
       this.userID = frame.headers['user-name'];
-      this.stompClient.subscribe(`/user/${this.userID}/game/${gameId}/subscriber`, onRecieve.bind(this))
+      this.stompClient.subscribe(`/user/${this.userID}/game/${gameId}/subscriber`, onRecieve)
     };
 
     this.stompClient.connect({}, onConnect.bind(this));

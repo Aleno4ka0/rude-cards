@@ -1,11 +1,6 @@
 import 'normalize.css';
 import './css/style.scss';
-import RegistrationPage from './scripts/RegistrationPage';
-import Page from './scripts/Page';
-import Facade from './scripts/Facade';
+import App from './scripts/App'
 
-const gamePage = new Page();
-const facade = new Facade(gamePage);
-gamePage.facade = facade;
-const registrationPage = new RegistrationPage(facade);
-registrationPage.renderPage();
+const app = new App();
+app.start()

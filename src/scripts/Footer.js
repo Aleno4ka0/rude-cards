@@ -9,28 +9,31 @@ export default class Footer {
   renderFooter() {
     this.createFooter();
     this.createFooterContent();
-
     this.createFooterText('Над проектом работали: <br>Леха <br> Алемба');
   }
 
   createFooter() {
-    this.footer = {
-      elementName: 'div', classNames: 'footer', parent: this.page,
-    };
-    this.footerElement = createDOMElement(this.footer);
+    this.footerElement = createDOMElement({
+      elementName: 'div', 
+      classNames: 'footer', 
+      parent: this.page,
+    });
   }
 
   createFooterContent() {
-    this.footerContent = {
-      elementName: 'div', classNames: 'footer__content', parent: this.footerElement,
-    };
-    this.footerContentElement = createDOMElement(this.footerContent);
+    this.footerContentElement = createDOMElement({
+      elementName: 'div', 
+      classNames: 'footer__content', 
+      parent: this.footerElement,
+    });
   }
 
   createFooterText(text) {
-    this.textContent = {
-      elementName: 'div', classNames: 'footer__text', children: text, parent: this.footerContentElement,
-    };
-    this.textContentElement = createDOMElement(this.textContent);
+    this.textContentElement = createDOMElement({
+      elementName: 'div', 
+      classNames: 'footer__text', 
+      children: text, 
+      parent: this.footerContentElement,
+    });
   }
 }

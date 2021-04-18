@@ -4,15 +4,15 @@ import Cards from './Cards';
 import InfoBar from './Infobar';
 
 export default class PageContent {
-  constructor(parentNode, facade) {
+  constructor(parentNode, app) {
     this.page = parentNode;
-    this.facade = facade;
+    this.app = app;
   }
 
   renderPageContent(msg) {
     this.createWrapperPageContent();
     this.createPageContent();
-    this.createWrapper('page-content__question', 'question');
+    this.createWrapper('page-content__question', msg.card.text);
 
     this.createWrapperInfoBar();
     const infoBar = new InfoBar(this.wrapperElementInfoBar);
@@ -20,45 +20,52 @@ export default class PageContent {
 
     this.createWrapperCards();
     const onClick = (e) => {
-      e.path[0].style.visibility = "hidden"
-      this.facade.sendAnswer(e.id)  
+      e.target.classList.add('card__invisible');
+      this.app.sendAnswer(e.target.id);
     }
-    const cards = new Cards(this.wrapperCardsElement, onClick);
-    cards.renderCards(msg);
+    this.cards = new Cards(this.wrapperCardsElement, onClick.bind(this));
+    this.cards.renderCards(msg);
   }
 
   createWrapperPageContent() {
-    this.wrapperPageContent = {
-      elementName: 'div', classNames: 'page-content__wrapper', parent: this.page,
-    };
-    this.wrapperPageContentElement = createDOMElement(this.wrapperPageContent);
+    this.wrapperPageContentElement = createDOMElement({
+      elementName: 'div', 
+      classNames: 'page-content__wrapper', 
+      parent: this.page,
+    });
   }
 
   createPageContent() {
-    this.pageContent = {
-      elementName: 'div', classNames: 'page-content', parent: this.wrapperPageContentElement,
-    };
-    this.pageContentElement = createDOMElement(this.pageContent);
+    this.pageContentElement = createDOMElement({
+      elementName: 'div', 
+      classNames: 'page-content', 
+      parent: this.wrapperPageContentElement,
+    });
   }
 
   createWrapper(className, qustion) {
-    this.wrapper = {
-      elementName: 'div', classNames: className, children: qustion, parent: this.pageContentElement,
-    };
-    this.wrapperElement = createDOMElement(this.wrapper);
+    this.wrapperElement = createDOMElement({
+      elementName: 'div', 
+      classNames: className, 
+      children: qustion, 
+      parent: this.pageContentElement,
+    });
   }
 
   createWrapperInfoBar() {
-    this.wrapper = {
-      elementName: 'div', classNames: 'page-content__info', parent: this.pageContentElement,
-    };
-    this.wrapperElementInfoBar = createDOMElement(this.wrapper);
+    this.wrapperElementInfoBar = createDOMElement({
+      elementName: 'div', 
+      classNames: 'page-content__info', 
+      parent: this.pageContentElement,
+    });
   }
 
   createWrapperCards() {
-    this.wrapperCards = {
-      elementName: 'div', classNames: 'page-content__cards', parent: this.pageContentElement,
-    };
-    this.wrapperCardsElement = createDOMElement(this.wrapperCards);
+    this.wrapperCardsElement = createDOMElement({
+      elementName: 'div', 
+      classNames: 'page-content__cards', 
+      parent: this.pageContentElement,
+    });
   }
+
 }
