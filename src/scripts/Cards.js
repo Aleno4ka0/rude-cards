@@ -50,7 +50,7 @@ export default class Cards {
     }
     this.players = [];
     for (let i = 0; i < players.length; i += 1) {
-      this.createPlayer(players[i].username);
+      this.createPlayer(`${players[i].score} - ${players[i].username}`);
     }
   }
 

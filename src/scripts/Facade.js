@@ -2,7 +2,7 @@
 
 export default class Facade {
   constructor(onRecieve) {
-    const host = 'http://rude-cards.herokuapp.com/game';
+    const host = 'http://localhost:8080/game';
     const socket = new SockJS(host);
 
     this.stompClient = Stomp.over(socket);
@@ -27,7 +27,15 @@ export default class Facade {
   sendAnswer(cardId) {
     const answer = { 
       senderUid: this.userID, 
-      type: 'NEW_ANSWER', 
+      type: 'CHOOSE_OWN', 
+      card: cardId }
+    this.stompClient.send(Facade.getAddress, {}, JSON.stringify(answer))
+  }
+
+  chooseWinner(cardId) {
+    const answer = { 
+      senderUid: this.userID, 
+      type: 'CHOSE_BEST', 
       card: cardId }
     this.stompClient.send(Facade.getAddress, {}, JSON.stringify(answer))
   }

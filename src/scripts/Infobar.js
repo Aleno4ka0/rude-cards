@@ -6,22 +6,19 @@ export default class InfoBar {
     this.wrapperInfoBar = parentNode;
   }
 
-  renderInfoBar() {
-    this.createLeader('Leha - lepeha');
-    this.createTimer();
-  }
+  renderInfoBar(name) {
+    this.leaderElement = createDOMElement({
+      elementName: 'div', 
+      classNames: 'leader', 
+      children: `Ведущий: ${name}`, 
+      parent: this.wrapperInfoBar,
+    });
+    this.timerElement = createDOMElement({
+      elementName: 'div', 
+      classNames: 'timer', 
+      children: '0:20', 
+      parent: this.wrapperInfoBar,
+    });
 
-  createLeader(name) {
-    this.leader = {
-      elementName: 'div', classNames: 'leader', children: `Ведущий: ${name}`, parent: this.wrapperInfoBar,
-    };
-    this.LeaderElement = createDOMElement(this.leader);
-  }
-
-  createTimer() {
-    this.timer = {
-      elementName: 'div', classNames: 'timer', children: '0:20', parent: this.wrapperInfoBar,
-    };
-    this.timerElement = createDOMElement(this.timer);
   }
 }

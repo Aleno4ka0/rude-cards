@@ -32,7 +32,6 @@ export default class Page {
 
   onGameConnect(msg) {
     document.body.innerHTML = ''
-    console.log(msg)
     this.renderPage(msg)
   }
 

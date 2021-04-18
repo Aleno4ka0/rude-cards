@@ -7,6 +7,7 @@ export default class PageContent {
   constructor(parentNode, app) {
     this.page = parentNode;
     this.app = app;
+    this.answers = [];
   }
 
   renderPageContent(msg) {
@@ -16,15 +17,28 @@ export default class PageContent {
 
     this.createWrapperInfoBar();
     const infoBar = new InfoBar(this.wrapperElementInfoBar);
-    infoBar.renderInfoBar();
+    infoBar.renderInfoBar(msg.detail);
 
     this.createWrapperCards();
     const onClick = (e) => {
       e.target.classList.add('card__invisible');
+      this.addAnswer(e.target.innerHTML, e.target.id)
       this.app.sendAnswer(e.target.id);
     }
     this.cards = new Cards(this.wrapperCardsElement, onClick.bind(this));
     this.cards.renderCards(msg);
+  }
+
+  addAnswer(name, id){
+    let card = createDOMElement({
+      elementName: 'div', 
+      classNames: 'card', 
+      children: name, 
+      parent: this.wrapperElement,
+    });
+    card.id = id;
+    card.addEventListener('click', this.event)
+    this.answers.push(card)
   }
 
   createWrapperPageContent() {

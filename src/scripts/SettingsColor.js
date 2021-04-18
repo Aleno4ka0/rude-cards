@@ -8,7 +8,6 @@ export default class SettingsColor {
   }
 
   renderButton() {
-    console.log('anime');
     this.createButton();
   }
 
