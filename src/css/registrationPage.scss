@@ -1,8 +1,25 @@
 .button__user{
-  width: 20rem;
+  width: 30rem;
   height: 10rem;
-  background-color: aquamarine;
+  background-color: rgba(255, 255, 255, 0.3);
   font-size: 2rem;
+  border-radius: 1rem;
+  border: 0px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: background-color 0.3s;
+  &:hover{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+}
+.user__name{
+  width: 30rem;
+  height: 4rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  font-size: 2rem;
+  border-radius: 1rem;
+  border: 0px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 .page{
   min-height: 100vh;
@@ -18,10 +35,11 @@
     height: calc(100vh - 12rem);
     margin: 1rem 3rem;
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 3rem;
     margin: auto;
-    background-color: black;
     justify-content: center;
+    align-items: center;
 
   }
 }

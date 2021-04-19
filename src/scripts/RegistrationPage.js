@@ -15,6 +15,7 @@ export default class RegistrationPage {
     this.app.header.renderHeader();
 
     this.createPageContent();
+    this.createRegistrationField();
     this.createJoinButton();
 
     this.app.footer = new Footer(this.pageElement);
@@ -23,25 +24,34 @@ export default class RegistrationPage {
 
   createPage() {
     this.pageElement = createDOMElement({
-      elementName: 'div', 
-      classNames: 'page', 
+      elementName: 'div',
+      classNames: 'page',
       parent: document.body,
     });
   }
 
   createPageContent() {
     this.pageContentElement = createDOMElement({
-      elementName: 'div', 
-      classNames: 'page__content', 
+      elementName: 'div',
+      classNames: 'page__content',
       parent: this.pageElement,
+    });
+  }
+
+  createRegistrationField() {
+    this.registrationField = createDOMElement({
+      elementName: 'input',
+      classNames: 'user__name',
+      children: 'введите имя',
+      parent: this.pageContentElement,
     });
   }
 
   createJoinButton() {
     this.userElement = createDOMElement({
-      elementName: 'button', 
-      classNames: 'button__user', 
-      children: 'добавить пользователя', 
+      elementName: 'button',
+      classNames: 'button__user',
+      children: 'Присоединиться к игре',
       parent: this.pageContentElement,
     });
 
