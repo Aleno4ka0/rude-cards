@@ -2,7 +2,7 @@
 
 export default class Facade {
   constructor(onRecieve) {
-    const host = 'http://localhost:8080/game';
+    const host = 'http://rude-cards.herokuapp.com/game';
     const socket = new SockJS(host);
 
     this.stompClient = Stomp.over(socket);

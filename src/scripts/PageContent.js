@@ -13,7 +13,10 @@ export default class PageContent {
   renderPageContent(msg) {
     this.createWrapperPageContent();
     this.createPageContent();
+
+    this.createWrapperQuestion();
     this.createWrapper('page-content__question', msg.card.text);
+    this.createWrapperAnswerCards();
 
     this.createWrapperInfoBar();
     const infoBar = new InfoBar(this.wrapperElementInfoBar);
@@ -22,64 +25,79 @@ export default class PageContent {
     this.createWrapperCards();
     const onClick = (e) => {
       e.target.classList.add('card__invisible');
-      this.addAnswer(e.target.innerHTML, e.target.id)
+      this.addAnswer(e.target.innerHTML, e.target.id);
       this.app.sendAnswer(e.target.id);
-    }
+    };
     this.cards = new Cards(this.wrapperCardsElement, onClick.bind(this));
     this.cards.renderCards(msg);
   }
 
-  addAnswer(name, id){
-    let card = createDOMElement({
-      elementName: 'div', 
-      classNames: 'card', 
-      children: name, 
-      parent: this.wrapperElement,
+  addAnswer(name, id) {
+    const card = createDOMElement({
+      elementName: 'div',
+      classNames: 'card_answer',
+      children: name,
+      parent: this.wrapperAnswerCardsElement,
     });
     card.id = id;
-    card.addEventListener('click', this.event)
-    this.answers.push(card)
+    card.addEventListener('click', this.event);
+    this.answers.push(card);
   }
 
   createWrapperPageContent() {
     this.wrapperPageContentElement = createDOMElement({
-      elementName: 'div', 
-      classNames: 'page-content__wrapper', 
+      elementName: 'div',
+      classNames: 'page-content__wrapper',
       parent: this.page,
     });
   }
 
   createPageContent() {
     this.pageContentElement = createDOMElement({
-      elementName: 'div', 
-      classNames: 'page-content', 
+      elementName: 'div',
+      classNames: 'page-content',
       parent: this.wrapperPageContentElement,
+    });
+  }
+
+  createWrapperQuestion() {
+    this.wrapperQuestionElement = createDOMElement({
+      elementName: 'div',
+      classNames: 'page-content_wrapper-question',
+      parent: this.pageContentElement,
     });
   }
 
   createWrapper(className, qustion) {
     this.wrapperElement = createDOMElement({
-      elementName: 'div', 
-      classNames: className, 
-      children: qustion, 
-      parent: this.pageContentElement,
+      elementName: 'div',
+      classNames: className,
+      children: qustion,
+      parent: this.wrapperQuestionElement,
     });
   }
 
   createWrapperInfoBar() {
     this.wrapperElementInfoBar = createDOMElement({
-      elementName: 'div', 
-      classNames: 'page-content__info', 
+      elementName: 'div',
+      classNames: 'page-content__info',
       parent: this.pageContentElement,
+    });
+  }
+
+  createWrapperAnswerCards() {
+    this.wrapperAnswerCardsElement = createDOMElement({
+      elementName: 'div',
+      classNames: 'page-content__cards_answer',
+      parent: this.wrapperQuestionElement,
     });
   }
 
   createWrapperCards() {
     this.wrapperCardsElement = createDOMElement({
-      elementName: 'div', 
-      classNames: 'page-content__cards', 
+      elementName: 'div',
+      classNames: 'page-content__cards',
       parent: this.pageContentElement,
     });
   }
-
 }
