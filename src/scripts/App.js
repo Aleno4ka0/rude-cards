@@ -33,7 +33,7 @@ export default class App {
         this.joinAs(username);  
       };
     
-      this.facade = new Facade(this.onRecieve.bind(this), onCommonRecieve.bind(this));
+      this.facade = new Facade(onCommonRecieve.bind(this));
     }
 
     createPage() {
