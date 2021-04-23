@@ -35,8 +35,15 @@ export default class Page {
     this.renderPage(msg)
   }
 
-  refreshAnswers(cards) {
-    console.log(cards)
+  refreshAnswers(msg, selfReply) {
+    if (selfReply) {
+      this.pageContent.applyAnswer();      
+    }
+    this.pageContent.addAnswer(msg.card.text, msg.card.uid);
+  }
+
+  endRound(msg){
+    this.pageContent.reRenderPageContent(msg);
   }
 
   showError(e) {

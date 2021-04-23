@@ -19,17 +19,38 @@ export default class PageContent {
     this.createWrapperAnswerCards();
 
     this.createWrapperInfoBar();
-    const infoBar = new InfoBar(this.wrapperElementInfoBar);
-    infoBar.renderInfoBar(msg.detail);
+    this.infoBar = new InfoBar(this.wrapperElementInfoBar);
+    this.infoBar.renderInfoBar(msg.detail);
 
     this.createWrapperCards();
     const onClick = (e) => {
-      e.target.classList.add('card__invisible');
-      this.addAnswer(e.target.innerHTML, e.target.id);
-      this.app.sendAnswer(e.target.id);
+      this.clickedAnswer = e.target;
+      this.app.facade.sendAnswer(e.target.id);
     };
+    this.onChoose = (e) => {
+      this.app.facade.chooseWinner(e.target.id);  
+    }
     this.cards = new Cards(this.wrapperCardsElement, onClick.bind(this));
     this.cards.renderCards(msg);
+  }
+
+  reRenderPageContent(msg) {
+    this.wrapperElement.innerHTML = msg.card.text;
+    this.wrapperAnswerCardsElement.innerHTML = '';
+    this.answers = []; 
+    this.infoBar.reRenderInfoBar(msg.detail); 
+    this.cards.createListPlayers(msg.players);
+    if(this.clickedAnswer){
+      const newCard = msg.cards.pop();
+      this.clickedAnswer.innerHTML = newCard.text;
+      this.clickedAnswer.id = newCard.uid;
+      this.clickedAnswer.classList.remove('card__invisible');
+      this.clickedAnswer = undefined;
+    } 
+  }
+
+  applyAnswer(){
+    this.clickedAnswer.classList.add('card__invisible');
   }
 
   addAnswer(name, id) {
@@ -40,7 +61,7 @@ export default class PageContent {
       parent: this.wrapperAnswerCardsElement,
     });
     card.id = id;
-    card.addEventListener('click', this.event);
+    card.addEventListener('click', this.onChoose.bind(this));
     this.answers.push(card);
   }
 

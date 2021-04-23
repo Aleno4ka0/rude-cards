@@ -10,7 +10,7 @@ export default class InfoBar {
     this.leaderElement = createDOMElement({
       elementName: 'div', 
       classNames: 'leader', 
-      children: `Ведущий: ${name}`, 
+      children: this.formatName(name), 
       parent: this.wrapperInfoBar,
     });
     this.timerElement = createDOMElement({
@@ -19,6 +19,12 @@ export default class InfoBar {
       children: '0:20', 
       parent: this.wrapperInfoBar,
     });
+  }
+  reRenderInfoBar(name) {
+    this.leaderElement.innerHTML = this.formatName(name);
+  }
 
+  formatName(name){
+    return `Ведущий: ${name}`;
   }
 }

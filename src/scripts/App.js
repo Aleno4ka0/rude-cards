@@ -17,10 +17,10 @@ export default class App {
               }
               break;
             case 'NEW_ANSWER':
-              this.gamePage.refreshAnswers(msg.Cards);
+              this.gamePage.refreshAnswers(msg, msg.detail == this.facade.userID);
               break;
             case 'NEXT_ROUND':
-
+              this.gamePage.endRound(msg);
               break;
             case 'EXCEPTION':
               this.gamePage.showError(msg.detail);
@@ -49,7 +49,4 @@ export default class App {
         this.facade.addUser(user);
     }
 
-    sendAnswer(uid){
-      this.facade.sendAnswer(uid);
-    }
 }

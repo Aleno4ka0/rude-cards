@@ -42,9 +42,9 @@ export default class RegistrationPage {
     this.registrationField = createDOMElement({
       elementName: 'input',
       classNames: 'user__name',
-      children: 'введите имя',
       parent: this.pageContentElement,
     });
+    this.registrationField.placeholder = 'введите имя'; 
   }
 
   createJoinButton() {
@@ -56,7 +56,7 @@ export default class RegistrationPage {
     });
 
     const onClick = () => {
-      this.app.joinAs('valera1');
+      this.app.joinAs(this.registrationField.value);
     };
     this.userElement.addEventListener('click', onClick.bind(this));
   }

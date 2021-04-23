@@ -28,16 +28,16 @@ export default class Facade {
     const answer = { 
       senderUid: this.userID, 
       type: 'CHOOSE_OWN', 
-      card: cardId }
-    this.stompClient.send(Facade.getAddress, {}, JSON.stringify(answer))
+      cardUid: cardId }
+    this.stompClient.send(Facade.getAddress(), {}, JSON.stringify(answer))
   }
 
   chooseWinner(cardId) {
     const answer = { 
       senderUid: this.userID, 
       type: 'CHOSE_BEST', 
-      card: cardId }
-    this.stompClient.send(Facade.getAddress, {}, JSON.stringify(answer))
+      cardUid: cardId }
+    this.stompClient.send(Facade.getAddress(), {}, JSON.stringify(answer))
   }
 
   static getAddress() {
