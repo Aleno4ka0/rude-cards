@@ -5,7 +5,7 @@ import Facade from './Facade';
 export default class App {
     constructor() {
       this.inGame = false;
-      const onRecieve =  (messageOutput) => {
+      this.onRecieve = (messageOutput) => {
           const msg = JSON.parse(messageOutput.body)
           switch (msg.type) {
             case 'PLAYER_LIST_UPDATED':
@@ -27,8 +27,13 @@ export default class App {
               break;
           }
         };
+      const onCommonRecieve = (messageOutput) => {
+        this.facade.setGameId(messageOutput.body, this.onRecieve);
+        const username = this.registrationPage.registrationField.value;
+        this.joinAs(username);  
+      };
     
-        this.facade = new Facade(onRecieve.bind(this));
+      this.facade = new Facade(this.onRecieve.bind(this), onCommonRecieve.bind(this));
     }
 
     createPage() {
@@ -40,12 +45,15 @@ export default class App {
     }
 
     start(){
-        const registrationPage = new RegistrationPage(this);
-        registrationPage.renderPage();    
+        this.registrationPage = new RegistrationPage(this);
+        this.registrationPage.renderPage();    
     }
 
-    joinAs(user){
+    joinAs(user, gameId){
         this.gamePage = new Page(this);
+        if(gameId){
+          this.facade.setGameId(gameId, this.onRecieve.bind(this));
+        }
         this.facade.addUser(user);
     }
 

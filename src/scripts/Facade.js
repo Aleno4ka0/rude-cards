@@ -1,16 +1,15 @@
 // import SockJS from 'sockjs';
 
 export default class Facade {
-  constructor(onRecieve) {
+  constructor(onCommonRecieve) {
     const host = 'http://rude-cards.herokuapp.com/game';
     const socket = new SockJS(host);
 
     this.stompClient = Stomp.over(socket);
-    const gameId = null;
 
     const onConnect = (frame) => {
       this.userID = frame.headers['user-name'];
-      this.stompClient.subscribe(`/user/${this.userID}/game/${gameId}/subscriber`, onRecieve)
+      this.stompClient.subscribe(`/user/${this.userID}/common`, onCommonRecieve);
     };
 
     this.stompClient.connect({}, onConnect.bind(this));
@@ -21,7 +20,7 @@ export default class Facade {
       senderUid: this.userID, 
       type: 'ADD_USER', 
       detail: name }
-    this.stompClient.send(Facade.getAddress(), {}, JSON.stringify(answer));
+    this.stompClient.send(this.getAddress(), {}, JSON.stringify(answer));
   }
 
   sendAnswer(cardId) {
@@ -29,7 +28,7 @@ export default class Facade {
       senderUid: this.userID, 
       type: 'CHOOSE_OWN', 
       cardUid: cardId }
-    this.stompClient.send(Facade.getAddress(), {}, JSON.stringify(answer))
+    this.stompClient.send(this.getAddress(), {}, JSON.stringify(answer))
   }
 
   chooseWinner(cardId) {
@@ -37,10 +36,19 @@ export default class Facade {
       senderUid: this.userID, 
       type: 'CHOSE_BEST', 
       cardUid: cardId }
-    this.stompClient.send(Facade.getAddress(), {}, JSON.stringify(answer))
+    this.stompClient.send(this.getAddress(), {}, JSON.stringify(answer))
   }
 
-  static getAddress() {
-    return '/game/null';
+  createGame() {
+    this.stompClient.send("/common/createGame", {}, '');
+  }
+
+  getAddress() {
+    return '/game/' + this.gameId;
+  }
+  
+  setGameId(id, onRecieve){
+    this.gameId = id;
+    this.stompClient.subscribe(`/user/${this.userID}/game/${this.gameId}/subscriber`, onRecieve);
   }
 }

@@ -16,7 +16,9 @@ export default class RegistrationPage {
 
     this.createPageContent();
     this.createRegistrationField();
+    this.createJoinField();
     this.createJoinButton();
+    this.createCreateButton();
 
     this.app.footer = new Footer(this.pageElement);
     this.app.footer.renderFooter();
@@ -56,8 +58,40 @@ export default class RegistrationPage {
     });
 
     const onClick = () => {
-      this.app.joinAs(this.registrationField.value);
+      if(this.registrationField.value && this.gameIdField.value){
+        this.app.joinAs(this.registrationField.value, this.gameIdField.value);
+      } else {
+        alert('введи имя и id игры или создай новую')
+      }
     };
     this.userElement.addEventListener('click', onClick.bind(this));
   }
+
+  createCreateButton() {
+    this.createGameButtonElement = createDOMElement({
+      elementName: 'button',
+      classNames: 'button__user',
+      children: 'Создать игру игре',
+      parent: this.pageContentElement,
+    });
+
+    const onClick = () => {
+      if(this.registrationField.value){
+        this.app.facade.createGame();
+      } else {
+        alert('имя введи')
+      }
+    };
+    this.createGameButtonElement.addEventListener('click', onClick.bind(this));
+  }
+  
+  createJoinField() {
+    this.gameIdField = createDOMElement({
+      elementName: 'input',
+      classNames: 'user__name',
+      parent: this.pageContentElement,
+    });
+    this.gameIdField.placeholder = 'id игры'; 
+  }
+  
 }
