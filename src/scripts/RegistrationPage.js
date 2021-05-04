@@ -9,6 +9,11 @@ export default class RegistrationPage {
     this.app = app;
   }
 
+  onConnect(){
+    this.createGameButtonElement.disabled = false;
+    this.userElement.disabled = false;
+  }
+
   renderPage() {
     this.createPage();
     this.app.header = new Header(this.pageElement);
@@ -64,6 +69,7 @@ export default class RegistrationPage {
         alert('введи имя и id игры или создай новую')
       }
     };
+    this.userElement.disabled = true;
     this.userElement.addEventListener('click', onClick.bind(this));
   }
 
@@ -82,6 +88,7 @@ export default class RegistrationPage {
         alert('имя введи')
       }
     };
+    this.createGameButtonElement.disabled = true;
     this.createGameButtonElement.addEventListener('click', onClick.bind(this));
   }
   

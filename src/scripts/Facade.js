@@ -1,7 +1,7 @@
 // import SockJS from 'sockjs';
 
 export default class Facade {
-  constructor(onCommonRecieve) {
+  constructor(onCommonRecieve, onAppConnect) {
     const host = 'http://rude-cards.herokuapp.com/game';
     const socket = new SockJS(host);
 
@@ -10,6 +10,7 @@ export default class Facade {
     const onConnect = (frame) => {
       this.userID = frame.headers['user-name'];
       this.stompClient.subscribe(`/user/${this.userID}/common`, onCommonRecieve);
+      onAppConnect();
     };
 
     this.stompClient.connect({}, onConnect.bind(this));
