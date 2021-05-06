@@ -1,14 +1,18 @@
 @use 'style';
 
 .footer{
-  height: 5rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  margin-top: auto;
+  width: 100%;
   display: flex;
-  justify-content: center;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.05);
   &__content{
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 3rem;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    color: white;
+    font-size: 1.5rem;
   }
 }

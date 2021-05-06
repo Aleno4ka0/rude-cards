@@ -9,7 +9,8 @@ export default class Footer {
   renderFooter() {
     this.createFooter();
     this.createFooterContent();
-    this.createFooterText('Над проектом работали: <br>Леха <br> Алемба');
+    this.createFooterText('О нас');
+    this.createFooterText('ми хотим питсы');
   }
 
   createFooter() {

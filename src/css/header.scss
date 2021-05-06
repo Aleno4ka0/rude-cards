@@ -2,57 +2,14 @@
 
 .header {
   height: 5rem;
-  margin-bottom: auto;
+  font-family: logo;
+  width: 100%;
   display: flex;
   justify-content: center;
-  flex-direction: row;
   align-items: center;
-  font-family: logo;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(0, 0, 0, 0.05);
   &__content{
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 3rem;
     font-size: 5rem;
     color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  &__menu{
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transform: rotate(0deg);
-    transition: all 1s;
-    z-index: 2;
-    :hover{
-      cursor: pointer;
-    }
-    &_open{
-      transform: rotate(90deg);
-    }
-  }
-}
-.line{
-  width: 2.5rem;
-  height: 0.4rem;
-  background-color: #ffffff;
-  border-radius: 25%;
-}
-.list{
-  z-index: 1;
-  height: 100vh;
-  width: 40rem;
-  min-width: 32rem;
-  background-color: rgba(255, 255, 255, 0.5);
-  position: fixed;
-  top: -100%;
-  transition: top 1s;
-  right: 0;
-  &_open{
-    top: 0;
   }
 }

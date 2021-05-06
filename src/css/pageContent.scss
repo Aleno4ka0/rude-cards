@@ -1,71 +1,61 @@
 @use 'style';
 
-.page-content__wrapper{
-  display: flex;
-  justify-content: center;
-}
 .page-content{
-  max-width: 1200px;
   width: 100%;
-  margin: 0 auto;
-  height: calc(100vh - 12rem);
-  margin: 1rem 3rem;
-  display: grid;
-  grid-template-rows: 1fr 7rem 1fr;
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
 
   &_wrapper-question{
     background-color: rgba(255, 255, 255, 0.03);
     display: grid;
-    grid-template-columns: 18rem 1fr;
+    grid-template-columns: 18.7rem 1fr;
+    height: 32.4rem;
   }
   
   &__question{
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
     border-radius: 0.5rem;
-    min-height: 20rem;
-    height: calc(100% - 4rem);
     font-size: 2rem;
     margin: 1rem;
     padding: 1rem;
     color: #fff;
   }
   &__info{
-    background-color: rgba(255, 255, 255, 0.03);
-    border-radius: 0.5rem;
+    height: 5rem;
     display: flex;
     flex-direction: row;
-    padding: 2rem;
+    padding: 0 2rem;
     align-items: center;
     justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.05);
   }
   &__cards{
+    height: 32.4rem;
     background-color: rgba(255, 255, 255, 0.03);
     border-radius: 0.5rem;
     display: grid;
-    grid-template-columns: 17rem calc(100% - 17rem);
-    min-height: 20rem;
+    grid-template-columns: 18rem 1fr;
     overflow: hidden;
 
     &_answer{
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      height: calc(100% - 2rem);
+      display: flex;
+      flex-wrap: wrap;
       gap: 1rem;
       padding: 1rem;
+      justify-content: space-between;
     }
   }
 }
 .card_answer{
-  display: flex;
   justify-content: center;
+  width: 14.7rem;
+  height: 14.7rem;
+  display: flex;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.2);
   font-size: 2rem;
-  height: 100%;
   border-radius: 1rem;
   text-align: center;
-
   transition: background-color 0.5s;
   &:hover{
     background-color: rgba(255, 255, 255, 0.3);
