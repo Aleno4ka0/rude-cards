@@ -1,6 +1,6 @@
 // import SockJS from 'sockjs';
 
-export default class Facade {
+export default class ClientFacade {
   constructor(onCommonRecieve, onAppConnect) {
     const host = 'http://rude-cards.herokuapp.com/game';
     const socket = new SockJS(host);

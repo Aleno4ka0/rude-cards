@@ -11,22 +11,27 @@ export default class Page {
   }
 
   renderPage(msg) {
-    this.createPage();
-    const header = new Header(this.pageElement);
-    header.renderHeader();
+    this.createPageAndPageWrapper();
+    this.header = new Header(this.page);
+    this.header.renderHeader();
 
-    this.pageContent = new PageContent(this.pageElement, this.app);
+    this.pageContent = new PageContent(this.page, this.app);
     this.pageContent.renderPageContent(msg);
 
-    const footer = new Footer(this.pageElement);
+    const footer = new Footer(this.page);
     footer.renderFooter();
   }
 
-  createPage() {
-    this.pageElement = createDOMElement({
+  createPageAndPageWrapper() {
+    this.pageWrapper = createDOMElement({
+      elementName: 'div', 
+      classNames: 'page-wrapper', 
+      parent: document.body,
+    });
+    this.page = createDOMElement({
       elementName: 'div', 
       classNames: 'page', 
-      parent: document.body,
+      parent: this.pageWrapper,
     });
   }
 
@@ -37,13 +42,9 @@ export default class Page {
 
   refreshAnswers(msg, selfReply) {
     if (selfReply) {
-      this.pageContent.applyAnswer();      
+      this.pageContent.player.applyAnswer();      
     }
-    this.pageContent.addAnswer(msg.card.text, msg.card.uid);
-  }
-
-  endRound(msg){
-    this.pageContent.reRenderPageContent(msg);
+    this.pageContent.game.addAnswer(msg.card.text, msg.card.uid);
   }
 
   showError(e) {

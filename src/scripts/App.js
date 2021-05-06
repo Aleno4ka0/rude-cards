@@ -1,6 +1,6 @@
 import RegistrationPage from './RegistrationPage';
 import Page from './Page';
-import Facade from './Facade';
+import ClientFacade from './ClientFacade';
 
 export default class App {
     constructor() {
@@ -10,17 +10,16 @@ export default class App {
           switch (msg.type) {
             case 'PLAYER_LIST_UPDATED':
               if (this.inGame) {
-                this.gamePage.pageContent.cards.createListPlayers(msg.players);
+                this.gamePage.pageContent.player.createListPlayers(msg.players);
               } else {
-                this.gamePage.onGameConnect(msg);
-                this.inGame = true;
+                this.forwardGamePage(msg);  
               }
               break;
             case 'NEW_ANSWER':
               this.gamePage.refreshAnswers(msg, msg.detail == this.facade.userID);
               break;
             case 'NEXT_ROUND':
-              this.gamePage.endRound(msg);
+              this.gamePage.pageContent.reRenderPageContent(msg);
               break;
             case 'EXCEPTION':
               this.gamePage.showError(msg.detail);
@@ -33,25 +32,23 @@ export default class App {
         this.joinAs(username);  
       };
     
-      this.start();
-      this.facade = new Facade(onCommonRecieve.bind(this), this.registrationPage.onConnect.bind(this.registrationPage));
+      this.forwardRegistrationPage();
+      this.facade = new ClientFacade(onCommonRecieve.bind(this), this.registrationPage.onConnect.bind(this.registrationPage));
     }
 
-    createPage() {
-      this.pageElement = createDOMElement({
-        elementName: 'div', 
-        classNames: 'page', 
-        parent: document.body,
-      });
-    }
 
-    start(){
+    forwardRegistrationPage(){
         this.registrationPage = new RegistrationPage(this);
         this.registrationPage.renderPage();    
     }
 
+    forwardGamePage(msg){
+      this.gamePage = new Page(this);
+      this.gamePage.onGameConnect(msg);
+      this.inGame = true;   
+  }
+
     joinAs(user, gameId){
-        this.gamePage = new Page(this);
         if(gameId){
           this.facade.setGameId(gameId, this.onRecieve.bind(this));
         }
