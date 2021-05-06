@@ -30,10 +30,15 @@ export default class RegistrationPage {
   }
 
   createPage() {
+    this.pageWrapper = createDOMElement({
+      elementName: 'div', 
+      classNames: 'page-wrapper', 
+      parent: document.body,
+    });
     this.page = createDOMElement({
       elementName: 'div',
       classNames: 'page',
-      parent: document.body,
+      parent: this.pageWrapper,
     });
   }
 
