@@ -60,6 +60,7 @@ export default class App {
   resize(){
     const min = Math.min(window.innerWidth / 1024, window.innerHeight / 768)
     this.gamePage.page.style.transform = 'scale(' + min + ')'
+    this.gamePage.page.style.webkitTransform = 'scale(' + min + ')'
   }
 
 }
