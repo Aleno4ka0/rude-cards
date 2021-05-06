@@ -16,7 +16,7 @@ export default class RegistrationPage {
 
   renderPage() {
     this.createPage();
-    this.app.header = new Header(this.pageElement);
+    this.app.header = new Header(this.page);
     this.app.header.renderHeader();
 
     this.createPageContent();
@@ -25,12 +25,12 @@ export default class RegistrationPage {
     this.createJoinButton();
     this.createCreateButton();
 
-    this.app.footer = new Footer(this.pageElement);
+    this.app.footer = new Footer(this.page);
     this.app.footer.renderFooter();
   }
 
   createPage() {
-    this.pageElement = createDOMElement({
+    this.page = createDOMElement({
       elementName: 'div',
       classNames: 'page',
       parent: document.body,
@@ -41,7 +41,7 @@ export default class RegistrationPage {
     this.pageContentElement = createDOMElement({
       elementName: 'div',
       classNames: 'page__content',
-      parent: this.pageElement,
+      parent: this.page,
     });
   }
 
