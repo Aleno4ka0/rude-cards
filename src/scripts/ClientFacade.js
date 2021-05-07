@@ -40,6 +40,13 @@ export default class ClientFacade {
     this.stompClient.send(this.getAddress(), {}, JSON.stringify(answer))
   }
 
+  startGame() {
+    const answer = { 
+      senderUid: this.userID, 
+      type: 'START'}
+    this.stompClient.send(this.getAddress(), {}, JSON.stringify(answer))
+  }
+
   createGame() {
     this.stompClient.send("/common/createGame", {}, '');
   }

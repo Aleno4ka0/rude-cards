@@ -82,7 +82,7 @@ export default class RegistrationPage {
     this.createGameButtonElement = createDOMElement({
       elementName: 'button',
       classNames: 'button__user',
-      children: 'Создать игру игре',
+      children: 'Создать новую игру',
       parent: this.pageContentElement,
     });
 
