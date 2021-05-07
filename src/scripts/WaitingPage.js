@@ -9,7 +9,7 @@ export default class WaitingPage {
   }
 
   reRenderPage(msg) {
-    this.updateCount(msg.players.length);
+    this.refreshPlayers(msg.players);
     this.startButton.disabled = msg.players.length < 3;
   }
 
@@ -19,9 +19,10 @@ export default class WaitingPage {
     this.header = new Header(this.page);
     this.header.renderHeader();
 
-    this.createPageContent();
-    this.updateCount(1);
+    this.createPlayerList();
+    this.createControlPanelWrapper();
     this.createStartButton();
+    this.createIdButton();
 
     const footer = new Footer(this.page);
     footer.renderFooter();
@@ -40,41 +41,71 @@ export default class WaitingPage {
     });
   }
 
-  createPageContent() {
-    this.pageContent = createDOMElement({
+  createPlayerList() {
+    this.playerList = createDOMElement({
       elementName: 'div',
-      classNames: 'page__content',
+      classNames: 'page__player-list',
       parent: this.page,
     });
+    
   }
 
-  updateCount(count) {
-    if (this.status === undefined) {
+  refreshPlayers(players) {
+    this.playerList.innerHTML = '';
+    this.playerTitle = createDOMElement({
+      elementName: 'div',
+      classNames: 'player-title',
+      children: 'Ожидание игроков:',
+      parent: this.playerList,
+    });
+    for (let i in players) {
       this.status = createDOMElement({
         elementName: 'div',
-        classNames: 'status',
-        parent: this.pageContent,
+        children: players[i].username,
+        classNames: 'player-row',
+        parent: this.playerList,
       });
     }
-    this.status.innerHTML = `Ожидание игроков... <br> ${count}/10 <br> Для старта нужно хотя бы 3 <br> id игры: ${this.app.facade.gameId}`;
   }
 
-  createStartButton() {
+  createControlPanelWrapper(){
+    this.controlPanelWrapper = createDOMElement({
+      elementName: 'div',
+      classNames: 'note',
+      children: 'Для старта игры необходимо хотя бы 3 игрока',
+      parent: this.page,
+    });  
+  }
+
+  createStartButton(){
+    const image = new Image(40, 40);
+    image.src = img;
+
     this.startButton = createDOMElement({
       elementName: 'button',
       classNames: 'button__user',
-      children: 'Начать игру',
-      parent: this.pageContent,
+      children: [image, 'Начать игру'],
+      parent: this.controlPanelWrapper,
     });
 
-    const image = new Image(40, 40);
-    image.src = img;
-    this.startButton.prepend(image);
-
-    const onClick = () => {
+    const onStartClick = () => {
       this.app.facade.startGame();
     };
     this.startButton.disabled = true;
-    this.startButton.addEventListener('click', onClick.bind(this));
+    this.startButton.addEventListener('click', onStartClick.bind(this));
+  }
+
+  createIdButton(){
+    this.idButton = createDOMElement({
+      elementName: 'button',
+      classNames: 'button__user',
+      children: 'Скопировать id игры',
+      parent: this.controlPanelWrapper,
+    });
+
+    const onCopyClick = () => {
+      navigator.clipboard.writeText(this.app.facade.gameId).andThen(alert("Id игры сохранено в буфер обмена"));
+    };
+    this.idButton.addEventListener('click', onCopyClick.bind(this));
   }
 }

@@ -11,13 +11,21 @@ function addChildren(children, element) {
   const currentElement = element;
 
   if (children && Array.isArray(children)) {
-    children.forEach(childElement => childElement && currentElement.appendChild(childElement));
-  } else if (children && typeof children === 'object') {
+    children.forEach(childElement => childElement && addChild(childElement, currentElement));
+  } else {
+    addChild(children, currentElement);
+  } 
+  return currentElement;
+}
+
+function addChild (children, element){
+  const currentElement = element;
+  if (children && typeof children === 'object') {
     currentElement.appendChild(children);
   } else if (children && typeof children === 'string') {
-    currentElement.innerHTML = children;
+    currentElement.innerHTML += children;
   }
-  return currentElement;
+  return currentElement
 }
 
 function addParent(parent, element) {
