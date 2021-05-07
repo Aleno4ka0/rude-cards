@@ -3,6 +3,8 @@ import Footer from './Footer';
 import Header from './Header';
 import img from '../assets/img/play.png';
 
+import '../css/waitingPage.scss';
+
 export default class WaitingPage {
   constructor(app) {
     this.app = app;
@@ -19,6 +21,7 @@ export default class WaitingPage {
     this.header = new Header(this.page);
     this.header.renderHeader();
 
+    this.createPageContent();
     this.createPlayerList();
     this.createControlPanelWrapper();
     this.createStartButton();
@@ -26,6 +29,14 @@ export default class WaitingPage {
 
     const footer = new Footer(this.page);
     footer.renderFooter();
+  }
+
+  createPageContent() {
+    this.pageContent = createDOMElement({
+      elementName: 'div',
+      classNames: 'waiting-page__content',
+      parent: this.page,
+    });
   }
 
   createPageAndPageWrapper() {
@@ -45,9 +56,8 @@ export default class WaitingPage {
     this.playerList = createDOMElement({
       elementName: 'div',
       classNames: 'page__player-list',
-      parent: this.page,
+      parent: this.pageContent,
     });
-    
   }
 
   refreshPlayers(players) {
@@ -58,7 +68,7 @@ export default class WaitingPage {
       children: 'Ожидание игроков:',
       parent: this.playerList,
     });
-    for (let i in players) {
+    for (const i in players) {
       this.status = createDOMElement({
         elementName: 'div',
         children: players[i].username,
@@ -68,16 +78,16 @@ export default class WaitingPage {
     }
   }
 
-  createControlPanelWrapper(){
+  createControlPanelWrapper() {
     this.controlPanelWrapper = createDOMElement({
       elementName: 'div',
       classNames: 'note',
       children: 'Для старта игры необходимо хотя бы 3 игрока',
-      parent: this.page,
-    });  
+      parent: this.pageContent,
+    });
   }
 
-  createStartButton(){
+  createStartButton() {
     const image = new Image(40, 40);
     image.src = img;
 
@@ -95,7 +105,7 @@ export default class WaitingPage {
     this.startButton.addEventListener('click', onStartClick.bind(this));
   }
 
-  createIdButton(){
+  createIdButton() {
     this.idButton = createDOMElement({
       elementName: 'button',
       classNames: 'button__user',
@@ -104,7 +114,7 @@ export default class WaitingPage {
     });
 
     const onCopyClick = () => {
-      navigator.clipboard.writeText(this.app.facade.gameId).andThen(alert("Id игры сохранено в буфер обмена"));
+      navigator.clipboard.writeText(this.app.facade.gameId).andThen(alert('Id игры сохранено в буфер обмена'));
     };
     this.idButton.addEventListener('click', onCopyClick.bind(this));
   }
