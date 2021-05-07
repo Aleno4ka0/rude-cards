@@ -1,26 +1,34 @@
 .button__user{
-  width: 30rem;
-  height: 10rem;
-  background-color: rgba(255, 255, 255, 0.3);
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  width: 25rem;
+  height: 7rem;
   font-size: 2rem;
-  border-radius: 1rem;
-  border: 0px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  transition: background-color 0.3s;
+  font-family: Sawarabi_Gothic;
+  background: linear-gradient(180deg, #FFCC4A 0%, #FF6400 100%);
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 0.7rem;
+  opacity: 100%;
+  box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.2);
   &:hover{
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.4);
+    opacity: 90%;
   }
 }
 .user__name{
-  width: 29rem;
+  width: 25rem;
   height: 4rem;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgb(235, 210, 210);
   font-size: 2rem;
-  border-radius: 1rem;
-  border: 0px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  font-family: Sawarabi_Gothic;
+  border-radius: 0.7rem;
+  border: 2px solid black;
   padding: 0 0 0 1rem;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.2);
 }
 .page{
   display: flex;
@@ -30,9 +38,6 @@
   width: 1024px;
   min-width: 1024px;
   height: 768px;
-  // border: rgba(0, 0, 0, 0.2) solid 3px;
-  // border-radius: 10px;
-  // box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.2);
   &__content{
     width: 100%;
     margin: 0 auto;

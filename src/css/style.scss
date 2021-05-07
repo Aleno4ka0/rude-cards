@@ -5,5 +5,13 @@
   font-family: logo;
   src: url(../assets/fonts/logo.ttf);
 }
-body{
+
+@font-face {
+  font-family: Sawarabi_Gothic;
+  src: url(../assets/fonts/Sawarabi_Gothic/SawarabiGothic-Regular.ttf);
+}
+
+@font-face {
+  font-family: Fira_Mono;
+  src: url(../assets/fonts/Fira_Mono/FiraMono-Medium.ttf);
 }
