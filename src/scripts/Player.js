@@ -10,16 +10,18 @@ export default class Player {
       this.app.facade.sendAnswer(e.target.id);
     };
     this.onClick = this.onClick.bind(this);
+    this.cardIds = [];
   }
 
   reRenderPlayer(msg) {
     this.playerList.createListPlayers(msg.players);
     if(this.clickedAnswer){
-      const newCard = msg.cards.pop();
+      const newCard = msg.cards.find((currentCard) => !this.cardIds.includes(currentCard.uid));
       this.clickedAnswer.innerHTML = newCard.text;
       this.clickedAnswer.id = newCard.uid;
       this.clickedAnswer.classList.remove('card__invisible');
       this.clickedAnswer = undefined;
+      this.cardIds.push(newCard.uid);
     } 
   }
 
@@ -52,7 +54,8 @@ export default class Player {
       parent: this.wrapperCardsElement,
     });
     this.cardElement.id = id;
-    this.cardElement.addEventListener('click', this.onClick)
+    this.cardElement.addEventListener('click', this.onClick);
+    this.cardIds.push(id);
   }
 
   
@@ -65,6 +68,8 @@ export default class Player {
   }
 
   applyAnswer(){
+    let indexToRemove = this.cardIds.indexOf(this.clickedAnswer.id);
+    this.cardIds.splice(indexToRemove, 1);
     this.clickedAnswer.classList.add('card__invisible');
   }
 }
